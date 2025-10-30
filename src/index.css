@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background: #F5F8F5;
+  --color-foreground: #1C1C1C;
+  --color-primary: #3BAE6E;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #3AA1C9;
+  --color-secondary-foreground: #ffffff;
+  --color-accent: #F4C542;
+  --color-accent-foreground: #1C1C1C;
+  --color-muted: #E9F0EA;
+  --color-muted-foreground: #3B3B3B;
+  --color-border: #DCE4DD;
+  --color-input: #E9F0EA;
+  --color-ring: #3BAE6E;
+}
+
+.dark {
+  --color-background: #0D0D0D;
+  --color-foreground: #E8E8E8;
+  --color-primary: #4CCF84;
+  --color-primary-foreground: #0D0D0D;
+  --color-secondary: #5BBBE0;
+  --color-secondary-foreground: #0D0D0D;
+  --color-accent: #F7D45A;
+  --color-accent-foreground: #0D0D0D;
+  --color-muted: #1A1A1A;
+  --color-muted-foreground: #CFCFCF;
+  --color-border: #2A2A2A;
+  --color-input: #1A1A1A;
+  --color-ring: #4CCF84;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans transition-colors;
+  }
+}
