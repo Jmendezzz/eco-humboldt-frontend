@@ -16,6 +16,7 @@
   --color-border: #DCE4DD;
   --color-input: #E9F0EA;
   --color-ring: #3BAE6E;
+  --color-destructive: #e63946;
 }
 
 .dark {
@@ -32,6 +33,7 @@
   --color-border: #2A2A2A;
   --color-input: #1A1A1A;
   --color-ring: #4CCF84;
+  --color-destructive: #e63946;
 }
 
 @layer base {

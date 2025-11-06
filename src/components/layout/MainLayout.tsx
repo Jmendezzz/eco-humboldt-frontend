@@ -1,6 +1,6 @@
-import { Outlet } from "react-router-dom";
 import { FloatingNavBar } from "../organisms/FloatingNavBar";
 import { HeaderNavBar } from "../organisms/HeaderNavBar";
+import { PageTransitionWrapper } from "./PageTransitionWrapper";
 
 export function MainLayout() {
     return (
@@ -8,7 +8,7 @@ export function MainLayout() {
             <HeaderNavBar />
 
             <main className="flex-1">
-                <Outlet />
+                <PageTransitionWrapper />
             </main>
 
             <footer className="text-center py-4 text-sm text-muted-foreground border-t border-border">

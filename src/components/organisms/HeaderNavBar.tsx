@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "../molecules/ThemeToggle";
+import { Button } from "../ui/Button";
+import { Link } from "react-router-dom";
+import { ROUTES } from "@/routes";
 
 export function HeaderNavBar() {
     const [scrolled, setScrolled] = useState(false);
@@ -29,8 +32,11 @@ export function HeaderNavBar() {
                     Menos Plástico, Más Vida
                 </h1>
 
-                <div className="ml-4">
+                <div className="ml-4 flex gap-6 items-center">
                     <ThemeToggle />
+                    <Link to={ROUTES.AUTH.LOGIN}>
+                        <Button>Iniciar Sesión</Button>
+                    </Link>
                 </div>
             </nav>
 
