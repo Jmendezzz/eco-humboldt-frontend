@@ -43,5 +43,10 @@
 
   body {
     @apply bg-background text-foreground font-sans transition-colors;
+    overflow-x: hidden;
   }
+}
+
+[data-framer-initial] {
+  opacity: 0 !important;
 }

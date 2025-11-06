@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/Button";
 
 export function HomePage() {
     return (
-        <section className="relative min-h-[calc(100vh-10rem)] flex flex-col items-center justify-center text-center overflow-hidden">
+        <section className="relative min-h-[90vh] flex flex-col items-center justify-center text-center overflow-hidden">
             <img
                 src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop"
                 alt="Naturaleza abstracta"

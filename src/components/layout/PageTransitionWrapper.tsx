@@ -1,21 +1,46 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { Outlet, useLocation } from "react-router-dom";
+import { motion, type Transition } from "framer-motion";
 
-export function PageTransitionWrapper() {
-    const location = useLocation();
+const pageVariants = {
+    initial: {
+        opacity: 0,
+        filter: "blur(8px) brightness(1.05)",
+        backdropFilter: "blur(8px)",
+    },
+    animate: {
+        opacity: 1,
+        filter: "blur(0px) brightness(1)",
+        backdropFilter: "blur(0px)",
+    },
+    exit: {
+        opacity: 0,
+        filter: "blur(10px) brightness(1.1)",
+        backdropFilter: "blur(10px)",
+    },
+};
 
+const pageTransition: Transition = {
+    type: "tween",
+    ease: [0.45, 0, 0.25, 1],
+    duration: 0.35,
+};
+
+export const PageTransition = ({ children }: { children: React.ReactNode }) => {
     return (
-        <AnimatePresence mode="wait">
-            <motion.div
-                key={location.pathname}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="min-h-[calc(100vh-10rem)]"
-            >
-                <Outlet />
-            </motion.div>
-        </AnimatePresence>
+        <motion.div
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={pageVariants}
+            transition={pageTransition}
+            className="
+        min-h-[calc(100vh-10rem)]
+        relative
+        backdrop-blur-lg
+        overflow-hidden
+        transition-all
+      "
+        >
+            {children}
+        </motion.div>
     );
-}
+};

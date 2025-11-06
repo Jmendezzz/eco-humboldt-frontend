@@ -1,33 +1,83 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// src/App.tsx
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+
 import { MainLayout } from "./components/layout/MainLayout";
 import { ROUTES } from "./routes";
+
 import { HomePage } from "./pages/HomePage";
-import { NotFoundPage } from "./pages/NotFoundPage";
+import { EducationPage } from "./pages/EducationPage";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
+import { PageTransition } from "./components/layout/PageTransitionWrapper";
 
+// --------------------------------------
+// Internal component with useLocation()
+// --------------------------------------
+function AnimatedAppRoutes() {
+  const location = useLocation();
 
-const router = createBrowserRouter([
-  {
-    path: ROUTES.HOME,
-    element: <MainLayout />,
-    children: [
-      { index: true, element: <HomePage /> },
-    ],
-  },
-  { path: ROUTES.AUTH.LOGIN, element: <LoginPage /> },
-  { path: ROUTES.AUTH.REGISTER, element: <RegisterPage /> },
-  {
-    path: "*",
-    element: <NotFoundPage />
-  }
-]);
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={location.pathname}>
+        {/* Layout routes */}
+        <Route element={<MainLayout />}>
+          <Route
+            index
+            element={
+              <PageTransition>
+                <HomePage />
+              </PageTransition>
+            }
+          />
+          <Route
+            path={ROUTES.EDUCATION}
+            element={
+              <PageTransition>
+                <EducationPage />
+              </PageTransition>
+            }
+          />
+        </Route>
 
+        {/* Auth routes */}
+        <Route
+          path={ROUTES.AUTH.LOGIN}
+          element={
+            <PageTransition>
+              <LoginPage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path={ROUTES.AUTH.REGISTER}
+          element={
+            <PageTransition>
+              <RegisterPage />
+            </PageTransition>
+          }
+        />
 
-function App() {
-
-  return <RouterProvider router={router} />;
-
+        {/* 404 */}
+        <Route
+          path="*"
+          element={
+            <PageTransition>
+              <NotFoundPage />
+            </PageTransition>
+          }
+        />
+      </Routes>
+    </AnimatePresence>
+  );
 }
 
-export default App
+
+export default function App() {
+  return (
+    <Router>
+      <AnimatedAppRoutes />
+    </Router>
+  );
+}
