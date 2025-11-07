@@ -1,4 +1,3 @@
-// src/App.tsx
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
@@ -11,17 +10,16 @@ import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { PageTransition } from "./components/layout/PageTransitionWrapper";
+import { ProfilePage } from "./pages/ProfilePage";
+import { EcologicalActionsPage } from "./pages/EcologicalActionsPage";
 
-// --------------------------------------
-// Internal component with useLocation()
-// --------------------------------------
+
 function AnimatedAppRoutes() {
   const location = useLocation();
 
   return (
     <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>
-        {/* Layout routes */}
         <Route element={<MainLayout />}>
           <Route
             index
@@ -39,9 +37,28 @@ function AnimatedAppRoutes() {
               </PageTransition>
             }
           />
+
+          <Route
+            path={ROUTES.PROFILE}
+            element={
+              <PageTransition>
+                <ProfilePage />
+              </PageTransition>
+            }
+          />
+
+          <Route
+            path={ROUTES.ECOLOGICAL_ACTIONS}
+            element={
+              <PageTransition>
+                <EcologicalActionsPage />
+              </PageTransition>
+            }
+          />
+
+
         </Route>
 
-        {/* Auth routes */}
         <Route
           path={ROUTES.AUTH.LOGIN}
           element={
