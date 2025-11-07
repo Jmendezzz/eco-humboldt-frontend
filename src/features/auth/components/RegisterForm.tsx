@@ -1,23 +1,41 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/Button";
 import { motion, AnimatePresence } from "framer-motion";
-import { registerSchema, type RegisterFormValues } from "@/lib/validations/registerSchema";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
+import { registerSchema, type RegisterFormValues } from "@/lib/validations/registerSchema";
+import { useState } from "react";
+import { useRegister } from "../hooks/useRegister";
+import { Button } from "@/components/ui/Button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export function RegisterForm() {
+    const { mutateAsync: registerUser, isPending } = useRegister();
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
+        reset,
     } = useForm<RegisterFormValues>({
         resolver: zodResolver(registerSchema),
     });
 
     const onSubmit = async (data: RegisterFormValues) => {
-        console.log("Register data:", data);
+        setSuccessMessage(null);
+        setErrorMessage(null);
+        try {
+            const result = await registerUser(data);
+            setSuccessMessage(`🎉 ¡Bienvenido, ${result.firstName}! Tu cuenta fue creada exitosamente.`);
+            reset();
+        } catch (error: any) {
+            const message =
+                error?.response?.data?.message || "Ocurrió un error durante el registro.";
+            setErrorMessage(message);
+        }
     };
 
     return (
@@ -80,7 +98,7 @@ export function RegisterForm() {
                         <Input
                             id="email"
                             type="email"
-                            placeholder="tucorreo@ejemplo.com"
+                            placeholder="tucorreo@cue.edu.co"
                             {...register("email")}
                         />
                         <AnimatePresence mode="wait">
@@ -105,7 +123,6 @@ export function RegisterForm() {
                             type="password"
                             placeholder="••••••••"
                             {...register("password")}
-                            className={errors.password ? "border-destructive focus-visible:ring-destructive/50" : ""}
                         />
                         <AnimatePresence mode="wait">
                             {errors.password && (
@@ -129,10 +146,44 @@ export function RegisterForm() {
                     type="submit"
                     size="lg"
                     className="font-semibold shadow-md w-full sm:w-auto px-8"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || isPending}
                 >
-                    {isSubmitting ? <Spinner /> : "Registrarse"}
+                    {isSubmitting || isPending ? <Spinner /> : "Registrarse"}
                 </Button>
+            </div>
+
+            <div className="mt-3">
+                <AnimatePresence mode="wait">
+                    {successMessage && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            <Alert className="border-green-600/40 bg-green-50 dark:bg-green-950/40 dark:border-green-700/40">
+                                <AlertDescription className="text-green-700 dark:text-green-300">
+                                    {successMessage}
+                                </AlertDescription>
+                            </Alert>
+                        </motion.div>
+                    )}
+
+                    {errorMessage && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            <Alert className="border-destructive/40 bg-destructive/10">
+                                <AlertDescription className="text-destructive">
+                                    {errorMessage}
+                                </AlertDescription>
+                            </Alert>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </form>
     );
