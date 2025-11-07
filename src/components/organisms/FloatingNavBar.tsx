@@ -6,6 +6,7 @@ import {
     MdPerson,
 } from "react-icons/md";
 import { ROUTES } from "@/routes";
+import { Earth } from "lucide-react";
 
 export function FloatingNavBar() {
     return (
@@ -17,6 +18,7 @@ export function FloatingNavBar() {
         border border-border
         rounded-2xl shadow-lg
         px-6 py-3
+        gap-4
         w-[95%] max-w-sm
         text-sm text-foreground
         transition-all z-50
@@ -24,6 +26,7 @@ export function FloatingNavBar() {
         >
             {[
                 { to: ROUTES.HOME, label: "Inicio", icon: <MdHome size={22} /> },
+                { to: ROUTES.ECOLOGICAL_ACTIONS, label: "Acciones Ecológicas", icon: <Earth size={22} /> },
                 { to: ROUTES.EDUCATION, label: "Aprender", icon: <MdSchool size={22} /> },
                 { to: ROUTES.LEADERBOARD, label: "Ranking", icon: <MdLeaderboard size={22} /> },
                 { to: ROUTES.PROFILE, label: "Perfil", icon: <MdPerson size={22} /> },

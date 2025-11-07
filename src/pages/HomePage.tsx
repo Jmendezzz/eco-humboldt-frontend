@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/Button";
+import { useAuth } from "@/contexts/AuthContext";
 
 export function HomePage() {
+    const { user } = useAuth();
     return (
         <section className="relative min-h-[90vh] flex flex-col items-center justify-center text-center overflow-hidden">
             <img
@@ -20,7 +22,7 @@ export function HomePage() {
         "
             >
                 <h2 className="text-4xl md:text-5xl font-bold text-primary drop-shadow-sm">
-                    ¡Bienvenido!
+                    {user ? `¡Bienvenido, ${user.firstName}!` : `¡Bienvenido!` } 
                 </h2>
 
                 <p className="mt-4 text-base md:text-lg text-muted-foreground">

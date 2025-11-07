@@ -7,6 +7,7 @@ export const ROUTES = {
         LOGIN:"/login",
         REGISTER: "/register"
     },
+    ECOLOGICAL_ACTIONS: "/ecological-actions"
 } as const;
 
 export type RouteKey = keyof typeof ROUTES;
