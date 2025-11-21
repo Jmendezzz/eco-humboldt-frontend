@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Crown, Medal, Sparkles } from "lucide-react";
+import { Crown } from "lucide-react";
 import { LeaderBoardList } from "@/features/leader-board/components/LeaderBoardList";
 import { Badge } from "@/components/ui/badge";
 
