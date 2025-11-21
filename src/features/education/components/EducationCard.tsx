@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 
 type EducationCardProps = {
     title: string;
     description: string;
-    icon: string;
+    icon: ReactNode;
     index: number;
 };
 
@@ -23,7 +24,9 @@ export function EducationCard({ title, description, icon, index }: EducationCard
         max-w-sm mx-auto
       "
         >
-            <div className="text-5xl mb-4">{icon}</div>
+            <div className="mb-4 flex items-center justify-center rounded-full bg-primary/10 p-3">
+                {icon}
+            </div>
             <h3 className="text-xl font-semibold text-primary mb-2">{title}</h3>
             <p className="text-muted-foreground leading-relaxed">{description}</p>
         </motion.div>
