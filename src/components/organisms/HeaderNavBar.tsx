@@ -72,7 +72,10 @@ export function HeaderNavBar() {
                                     </AvatarFallback>
                                 </Avatar>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-56 bg-accent-foreground">
+                            <DropdownMenuContent
+                                align="end"
+                                className="w-56 bg-background/95 backdrop-blur-md border-border/70"
+                            >
                                 <DropdownMenuLabel>
                                     <div className="flex flex-col">
                                         <span className="font-medium">

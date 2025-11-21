@@ -12,6 +12,7 @@ import { NotFoundPage } from "./pages/NotFoundPage";
 import { PageTransition } from "./components/layout/PageTransitionWrapper";
 import { ProfilePage } from "./pages/ProfilePage";
 import { EcologicalActionsPage } from "./pages/EcologicalActionsPage";
+import { LeaderBoardPage } from "./pages/LeaderBoardPage";
 
 
 function AnimatedAppRoutes() {
@@ -52,6 +53,15 @@ function AnimatedAppRoutes() {
             element={
               <PageTransition>
                 <EcologicalActionsPage />
+              </PageTransition>
+            }
+          />
+
+          <Route
+            path={ROUTES.LEADERBOARD}
+            element={
+              <PageTransition>
+                <LeaderBoardPage />
               </PageTransition>
             }
           />
